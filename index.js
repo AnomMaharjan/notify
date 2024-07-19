@@ -19,6 +19,9 @@ app.use("/api/notification", notificationRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter)
 
+app.get('/', async (req, res) => {
+    res.send("Hello world.")
+})
 
 const PORT = process.env.PORT || 3000
 
