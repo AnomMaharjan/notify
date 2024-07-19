@@ -8,12 +8,12 @@ const notificationRouter = Router();
 config();
 
 
+console.log(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
 const serviceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccountKey)
 });
-
 
 
 
