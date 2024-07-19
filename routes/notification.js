@@ -50,7 +50,7 @@ notificationRouter.post('/send', auth, async (req, res) => {
             .then((response) => {
                 console.log('Notification sent:', response);
                 user.save()
-                res.send({
+                res.status(200).send({
                     status: true,
                     msg: "Notificaiton sent successfully."
                 })
@@ -58,9 +58,9 @@ notificationRouter.post('/send', auth, async (req, res) => {
             .catch((error) => {
                 console.error('Error sending notification:', error);
 
-                res.send({
+                res.status(500).send({
                     status: false,
-                    msg: "Error sending notificaiton."
+                    msg: err
                 })
             });
     } catch (err) {
