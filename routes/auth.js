@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { signUpBodyValidation, logInBodyValidation } from "../utils/authValidator.js";
 import User from "../models/User.js";
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import generateTokens from "../utils/generateTokens.js";
 
 

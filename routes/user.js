@@ -1,7 +1,5 @@
 import { Router } from "express";
-import auth from "../middleware/auth.js";
 import User from "../models/User.js";
-import Notification from "../models/Notification.js";
 
 const userRouter = Router();
 
