@@ -8,11 +8,16 @@ const notificationRouter = Router();
 config();
 
 
-console.log(process.env.FIREBASE_SERVICE_ACCOUNT_KEY)
-const serviceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
+
+const { private_key } = JSON.parse(process.env.private_key)
+// const serviceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccountKey)
+    credential: admin.credential.cert({
+        clientEmail: String(process.env.client_email),
+        privateKey: private_key,
+        projectId: String(process.env.project_id)
+    })
 });
 
 
@@ -50,7 +55,7 @@ notificationRouter.post('/send', auth, async (req, res) => {
             .then((response) => {
                 console.log('Notification sent:', response);
                 user.save()
-                res.status(200).send({
+                return res.status(200).send({
                     status: true,
                     msg: "Notificaiton sent successfully."
                 })
@@ -58,7 +63,7 @@ notificationRouter.post('/send', auth, async (req, res) => {
             .catch((error) => {
                 console.error('Error sending notification:', error);
 
-                res.status(500).send({
+                return res.status(500).send({
                     status: false,
                     msg: err
                 })
