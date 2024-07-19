@@ -1,20 +1,21 @@
 import { Router } from "express";
 import admin from 'firebase-admin';
-import serviceAccount from '../notify-7a166-firebase-adminsdk-p18gx-3d6826dceb.json' assert { type: 'json' }
 import auth from "../middleware/auth.js";
 import User from "../models/User.js";
 import Notification from "../models/Notification.js";
-
+import { config } from "dotenv";
 const notificationRouter = Router();
+config();
 
 
+const serviceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
+    credential: admin.credential.cert(serviceAccountKey)
 });
 
 
-// const registrationTokens = ['duvFrc5rROepQDEvUXbwrA:APA91bHumc25JC8XVyhJ4td_u4OUhSm3-UMdFZviKq5t-xLaiH-HKkrERqBMo3k9bLphEClwKp0Xz6X2PDq2BGe1OzMCSJ_MExVoW9evPS2GxBKmhYEHvESmGuldanLQGlnGqwNdWW6A'];
+
 
 var registrationTokens = [];
 
